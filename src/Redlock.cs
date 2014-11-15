@@ -117,7 +117,6 @@ namespace Redlock.CSharp
                      * for small TTLs.        
                      */
                     var drift = Convert.ToInt32((ttl.TotalMilliseconds * ClockDriveFactor) + 2);
-                    // TODO: Check Validity Time
                     var validity_time = ttl - (DateTime.Now - startTime) - new TimeSpan(0, 0, 0, 0, drift);
 
                     if (n >= Quorum && validity_time.TotalMilliseconds > 0)
@@ -160,9 +159,13 @@ namespace Redlock.CSharp
         }
         protected bool retry(int retryCount, TimeSpan retryDelay, Func<bool> action)
         { 
-            //TODO : Use Retry logic.
+            int currentRetry = 0;
 
-            return action();
+            while (currentRetry++ < retryCount)
+            {
+                if (action()) return true;
+            }
+            return false;
         }
         public void Unlock(Lock lockObject)
         {
