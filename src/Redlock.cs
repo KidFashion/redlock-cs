@@ -96,9 +96,7 @@ namespace Redlock.CSharp
         {
             var val = CreateUniqueLockId();
             Lock innerLock = null;
-            bool successfull = false;
-
-            retry(DefaultRetryCount, DefaultRetryDelay, () =>
+            bool successfull = retry(DefaultRetryCount, DefaultRetryDelay, () =>
             {
                 try
                 {
@@ -160,11 +158,11 @@ namespace Redlock.CSharp
                 action(item.Key);
             }
         }
-        protected void retry(int retryCount, TimeSpan retryDelay, Func<bool> action)
+        protected bool retry(int retryCount, TimeSpan retryDelay, Func<bool> action)
         { 
             //TODO : Use Retry logic.
 
-            action();
+            return action();
         }
         public void Unlock(Lock lockObject)
         {
