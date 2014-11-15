@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Lock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Redlock.cs" />
   </ItemGroup>
