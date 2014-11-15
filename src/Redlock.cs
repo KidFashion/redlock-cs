@@ -36,7 +36,7 @@ namespace Redlock.CSharp
         }
 
         const int DefaultRetryCount = 3;
-        readonly TimeSpan DefaultRetryDelay = new TimeSpan(0, 0, 200);
+        readonly TimeSpan DefaultRetryDelay = new TimeSpan(0, 0, 0, 0, 200);
         const double ClockDriveFactor = 0.01;
 
         protected int Quorum { get { return (redisMasterDictionary.Count / 2) + 1; } }
