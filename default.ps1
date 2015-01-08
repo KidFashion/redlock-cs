@@ -121,7 +121,7 @@ $nuget = (ls ".\tests\packages\NuGet.CommandLine*\tools\nuget.exe").FullName
 Task Publish-NugetPackage  -depends Create-NugetPackage { 
 $apikey = cat apikey.txt
 $nuget = (ls ".\tests\packages\NuGet.CommandLine*\tools\nuget.exe").FullName
-$packagetopublish = ls *.nupkg
+$packagetopublish = ls nuget\*.nupkg
 &$nuget push $packagetopublish -apikey $apikey
 }
 

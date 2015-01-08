@@ -2,12 +2,12 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>redlock-cs</id>
-    <version>1.0</version>
+    <version>1.0.0.1</version>
     <authors>kidfashion</authors>
     <owners>kidfashion</owners>
-    <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
+    <licenseUrl>https://raw.githubusercontent.com/KidFashion/redlock-cs/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/KidFashion/redlock-cs</projectUrl>
-    <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
+    <iconUrl>http://wprediscache.com/wp-content/uploads/2014/07/icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Distributed lock with Redis and C# (based on http://redis.io/topics/distlock)</description>
     <tags>redis redlock lock</tags>
