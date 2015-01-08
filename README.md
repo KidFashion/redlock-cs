@@ -23,14 +23,16 @@ var dlm = new Redlock(
 // Declare lock object.
 Lock lockObject;
 
-// Try to acquire the lock (with resourceName as lock identifier and an expiration time of 10 seconds).
+// Try to acquire the lock (with resourceName as lock identifier and an 
+// expiration time of 10 seconds).
 var locked = dlm.Lock(
 		resourceName,
 		new TimeSpan(0, 0, 10), 
 		out lockObject
 	     );
 
-// If locked is true, lockObject is populated and the lock has been acquired, otherwise the lock has not been acquired.
+// If locked is true, lockObject is populated and the lock has been acquired, 
+// otherwise the lock has not been acquired.
 
 // Tries to release the lock contained in lockObject.
 dlm.Unlock(lockObject);
