@@ -1,6 +1,8 @@
 redlock-cs
 ==========
 
+[![Build status](https://ci.appveyor.com/api/projects/status/xat1stsmpvl3gjcg?svg=true)](https://ci.appveyor.com/project/KidFashion/redlock-cs)
+
 Distributed lock with Redis and C# (based on the [redlock algorithm](http://redis.io/topics/distlock))
 
 Redlock-cs is available through nuget as [redlock-cs package](http://www.nuget.org/packages/redlock-cs/).
