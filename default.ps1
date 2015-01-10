@@ -43,7 +43,7 @@ Write-Host -ForegroundColor Green "Print-TaskList" -nonewline;Write-Host " : Pri
 Write-Host -ForegroundColor Green "Build-Project"-nonewline; write-host " : Build Project (4.5)"
 #Write-Host -ForegroundColor Green "Build-Project-Net45"-nonewline; write-host " : Build Project (4.5)"
 Write-Host -ForegroundColor Green "Build-Project-Net40"-nonewline; write-host " : Build Project (4.0)"
-Write-Host -ForegroundColor Green "Test-Solution" -nonewline; write-host " : Test Projects"
+Write-Host -ForegroundColor Green "Test-Project" -nonewline; write-host " : Test Project (v4.5)"
 Write-Host -ForegroundColor Green "Measure-CodeCoverage" -nonewline; write-host " : Generate code coverage report."
 Write-Host -ForegroundColor Green "Generate-Reports" -nonewline; write-host " : Generate UnitTest and CodeCoverage reports."
 
@@ -100,7 +100,7 @@ Task Test-Project -depends Test-Project-Net45 {
 Task Test-Project-Net45 -depends Build-Test-Project-Net45 {
 $version = "v4.5"
 $configuration = $script:hash.build_mode
-$gallio = (ls ".\tests\packages\GallioBundle*\bin\Gallio.Echo.exe").FullName
+$gallio = (ls ".\packages\GallioBundle*\bin\Gallio.Echo.exe").FullName
 $ServiceTestDll = "Redlock.CSharp.Tests.dll"
 #Add-PSSnapIn Gallio
 #Run-Gallio "Staging\$($version)\$($ServiceTestDll)" -Filter "exclude Category:database" -rd "Staging\$($version)\reports" -rt html -ReportNameFormat "test-report"
@@ -114,13 +114,13 @@ Write-Host "UnitTest Report Generated in Staging\$($version)\reports\test-report
 Task Create-NugetPackage  -depends Build-Project-Net45, Build-Project-Net40 { 
 if (test-path nuget) {rm -force -recurse nuget}
 mkdir nuget
-$nuget = (ls ".\tests\packages\NuGet.CommandLine*\tools\nuget.exe").FullName
+$nuget = (ls ".\packages\NuGet.CommandLine*\tools\nuget.exe").FullName
 &$nuget pack redlock-cs.nuspec -outputdirectory nuget
 }
 
 Task Publish-NugetPackage  -depends Create-NugetPackage { 
 $apikey = cat apikey.txt
-$nuget = (ls ".\tests\packages\NuGet.CommandLine*\tools\nuget.exe").FullName
+$nuget = (ls ".\packages\NuGet.CommandLine*\tools\nuget.exe").FullName
 $packagetopublish = ls nuget\*.nupkg
 &$nuget push $packagetopublish -apikey $apikey
 }
