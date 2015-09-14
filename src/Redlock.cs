@@ -22,6 +22,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Redlock.CSharp
@@ -59,8 +60,6 @@ namespace Redlock.CSharp
 
 
         protected Dictionary<String,ConnectionMultiplexer> redisMasterDictionary = new Dictionary<string,ConnectionMultiplexer>();
-
-
 
         //TODO: Refactor passing a ConnectionMultiplexer
         protected bool LockInstance(string redisServer, string resource, byte[] val, TimeSpan ttl)
@@ -142,6 +141,7 @@ namespace Redlock.CSharp
             lockObject = innerLock;
             return successfull;
         }
+
         protected void for_each_redis_registered(Action<ConnectionMultiplexer> action)
         {
             foreach (var item in redisMasterDictionary)
@@ -157,16 +157,21 @@ namespace Redlock.CSharp
                 action(item.Key);
             }
         }
+
         protected bool retry(int retryCount, TimeSpan retryDelay, Func<bool> action)
-        { 
+        {
+            int maxRetryDelay = (int)retryDelay.TotalMilliseconds;
+            Random rnd = new Random();
             int currentRetry = 0;
 
             while (currentRetry++ < retryCount)
             {
                 if (action()) return true;
+                Thread.Sleep(rnd.Next(maxRetryDelay));
             }
             return false;
         }
+
         public void Unlock(Lock lockObject)
         {
             for_each_redis_registered(redis =>
