@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using MbUnit.Framework;
+using NUnit.Framework;
 using StackExchange.Redis;
 using System.Diagnostics;
 
@@ -13,57 +13,15 @@ namespace Redlock.CSharp.Tests
         private const string ResourceName = "MyResourceName";
         private readonly List<Process> _redisProcessList = new List<Process>();
        
-        [FixtureSetUp]
+        [SetUp]
         public void Setup()
         {
-            var fileName = System.IO.Path.GetFullPath(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"..\..\..\packages\Redis-32.2.6.12.1\tools\redis-server.exe");
-
-            // Launch Server
-            var redis = new Process
-            {
-                StartInfo =
-                {
-                    FileName = fileName,
-                    Arguments = "--port 6379",
-                    WindowStyle = ProcessWindowStyle.Hidden
-                }
-            };
-
-            // Configure the process using the StartInfo properties.
-            redis.Start();
-            _redisProcessList.Add(redis);
-
-            redis = new Process
-            {
-                StartInfo =
-                {
-                    FileName = fileName,
-                    Arguments = "--port 6380",
-                    WindowStyle = ProcessWindowStyle.Hidden
-                }
-            };
-
-            // Configure the process using the StartInfo properties.
-            redis.Start();
-            _redisProcessList.Add(redis);
-
-            redis = new Process
-            {
-                StartInfo =
-                {
-                    FileName = fileName,
-                    Arguments = "--port 6381",
-                    WindowStyle = ProcessWindowStyle.Hidden
-                }
-            };
-
-            // Configure the process using the StartInfo properties.
-            redis.Start();
-
-            _redisProcessList.Add(redis);
+            _redisProcessList.Add(TestHelper.StartRedisServer(6379));
+            _redisProcessList.Add(TestHelper.StartRedisServer(6380));
+            _redisProcessList.Add(TestHelper.StartRedisServer(6381));
         }
 
-        [FixtureTearDown]
+        [TearDown]
         public void Teardown()
         {
             foreach (var process in _redisProcessList.Where(process => !process.HasExited))
