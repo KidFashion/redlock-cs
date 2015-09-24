@@ -51,12 +51,6 @@ namespace Redlock.CSharp
             _connections = connections.ToList().AsReadOnly();
         }
 
-
-        private static byte[] CreateUniqueLockId()
-        {
-            return Guid.NewGuid().ToByteArray();
-        }
-
         public bool Lock(RedisKey resource, TimeSpan ttl, out Lock lockObject)
         {
             var task = LockAsync(resource, ttl);
@@ -180,6 +174,11 @@ namespace Redlock.CSharp
                 Thread.Sleep(rnd.Next(maxRetryDelay));
             }
             return false;
+        }
+
+        private static byte[] CreateUniqueLockId()
+        {
+            return Guid.NewGuid().ToByteArray();
         }
 
     }
