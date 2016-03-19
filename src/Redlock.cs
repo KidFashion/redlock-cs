@@ -112,7 +112,7 @@ namespace Redlock.CSharp
 
                     /*
                      * Add 2 milliseconds to the drift to account for Redis expires
-                     * precision, which is 1 milliescond, plus 1 millisecond min drift 
+                     * precision, which is 1 millisecond, plus 1 millisecond min drift 
                      * for small TTLs.        
                      */
                     var drift = Convert.ToInt32((ttl.TotalMilliseconds * ClockDriveFactor) + 2);
