@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2B892971-1410-4F89-B179-71B53132E6F8}</ProjectGuid>
+    <ProjectGuid>{C9765FBE-82AC-4A30-8B43-112A79957DC3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Redlock.CSharp.Tests</RootNamespace>
-    <AssemblyName>Redlock.CSharp.Tests</AssemblyName>
+    <RootNamespace>Redlock.CSharp</RootNamespace>
+    <AssemblyName>Redlock.CSharp</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,9 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework">
-      <HintPath>$(SolutionDir)\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="StackExchange.Redis">
       <HintPath>$(SolutionDir)\packages\StackExchange.Redis.1.0.371\lib\net45\StackExchange.Redis.dll</HintPath>
     </Reference>
@@ -45,19 +42,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MultiServerLockTests.cs" />
-    <Compile Include="SingleServerLockTests.cs" />
-    <Compile Include="TestHelper.cs" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\src\v4.5\redlock-cs.v4.5.csproj">
-      <Project>{c9765fbe-82ac-4a30-8b43-112a79957dc3}</Project>
-      <Name>redlock-cs.v4.5</Name>
-    </ProjectReference>
+    <Compile Include="..\Lock.cs">
+      <Link>Lock.cs</Link>
+    </Compile>
+    <Compile Include="..\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Redlock.cs">
+      <Link>Redlock.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
