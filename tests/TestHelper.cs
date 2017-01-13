@@ -1,4 +1,7 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
+using System.IO;
+using System.Reflection;
 
 namespace Redlock.CSharp.Tests
 {
@@ -6,8 +9,9 @@ namespace Redlock.CSharp.Tests
     {
         public static Process StartRedisServer(long port)
         {
-            var assemblyDir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            var fileName = System.IO.Path.Combine(assemblyDir, "redis-server.exe");
+            var assemblyDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var fileName = Path.Combine(assemblyDir, "redis-server.exe");
+
             // Launch Server
             var process = new Process
             {
@@ -18,7 +22,22 @@ namespace Redlock.CSharp.Tests
                     WindowStyle = ProcessWindowStyle.Hidden
                 }
             };
-            process.Start();
+
+            try
+            {
+                process.Start();
+            }
+            catch (System.ComponentModel.Win32Exception)
+            {
+                Console.WriteLine($"Attempt to launch {fileName} failed.");
+                Console.WriteLine("Directory listing:");
+                foreach (var file in Directory.GetFiles(assemblyDir))
+                {
+                    Console.WriteLine($"\t{file}");
+                }
+                throw;
+            }
+
             return process;
         }
     }
