@@ -7,7 +7,7 @@ namespace Redlock.CSharp.Tests
         public static Process StartRedisServer(long port)
         {
             var assemblyDir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            var fileName = System.IO.Path.Combine(assemblyDir, @"..\..\..\packages\Redis-32.2.6.12.1\tools\redis-server.exe");
+            var fileName = System.IO.Path.Combine(assemblyDir, "redis-server.exe");
             // Launch Server
             var process = new Process
             {
