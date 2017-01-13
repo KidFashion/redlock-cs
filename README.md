@@ -1,7 +1,7 @@
 redlock-cs
 ==========
 
-[![Build status](https://ci.appveyor.com/api/projects/status/xat1stsmpvl3gjcg?svg=true)](https://ci.appveyor.com/project/KidFashion/redlock-cs)
+[![Build status](https://ci.appveyor.com/api/projects/status/wj9g1rmvf0jjaxow?svg=true)](https://ci.appveyor.com/project/collinsauve/redlock-cs)
 
 Distributed lock with Redis and C# (based on the [redlock algorithm](http://redis.io/topics/distlock))
 
@@ -9,7 +9,7 @@ Redlock-cs is available through nuget as [redlock-cs package](http://www.nuget.o
 
 ## Usage
 
-Check our [Unit Test](https://github.com/KidFashion/redlock-cs/blob/master/tests/MultiServerLockTests.cs).
+Check our [Unit Test](https://github.com/collinsauve/redlock-cs/blob/master/tests/MultiServerLockTests.cs).
 
 The API is based on antirez [Ruby implementation](https://github.com/antirez/redlock-rb) and works as in the following example:
 
