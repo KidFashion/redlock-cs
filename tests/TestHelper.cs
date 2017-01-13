@@ -33,7 +33,7 @@ namespace Redlock.CSharp.Tests
                 Console.WriteLine("Directory listing:");
                 foreach (var file in Directory.GetFiles(assemblyDir))
                 {
-                    Console.WriteLine($"\t{file}");
+                    Console.WriteLine($"\t{Path.GetFileName(file)}");
                 }
                 throw;
             }
