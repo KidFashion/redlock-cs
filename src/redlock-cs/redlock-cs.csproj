@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Redlock.CSharp</RootNamespace>
+    <Authors>kidfashion</Authors>
+    <Company>kidfashion</Company>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/KidFashion/redlock-cs/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/KidFashion/redlock-cs</PackageProjectUrl>
+    <Description>Distributed lock with Redis and C# (based on http://redis.io/topics/distlock)</Description>
+    <FileVersion>2.0.0.0</FileVersion>
+    <PackageTags>redis redlock lock</PackageTags>
+    <Version>2.0.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="StackExchange.Redis" Version="2.0.519" />
+  </ItemGroup>
+
+</Project>
