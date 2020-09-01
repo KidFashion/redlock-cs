@@ -30,7 +30,7 @@ namespace Redlock.CSharp
     public class Redlock
     {
 
-        public Redlock(params ConnectionMultiplexer[] list)
+        public Redlock(params IConnectionMultiplexer[] list)
         { 
             foreach(var item in list)
                 this.redisMasterDictionary.Add(item.GetEndPoints().First().ToString(),item);
@@ -59,7 +59,7 @@ namespace Redlock.CSharp
         }
 
 
-        protected Dictionary<String,ConnectionMultiplexer> redisMasterDictionary = new Dictionary<string,ConnectionMultiplexer>();
+        protected Dictionary<String,IConnectionMultiplexer> redisMasterDictionary = new Dictionary<string,IConnectionMultiplexer>();
 
         //TODO: Refactor passing a ConnectionMultiplexer
         protected bool LockInstance(string redisServer, string resource, byte[] val, TimeSpan ttl)
@@ -142,7 +142,7 @@ namespace Redlock.CSharp
             return successfull;
         }
 
-        protected void for_each_redis_registered(Action<ConnectionMultiplexer> action)
+        protected void for_each_redis_registered(Action<IConnectionMultiplexer> action)
         {
             foreach (var item in redisMasterDictionary)
             {
