@@ -61,15 +61,13 @@ namespace Redlock.CSharp
 
         protected Dictionary<String,IConnectionMultiplexer> redisMasterDictionary = new Dictionary<string,IConnectionMultiplexer>();
 
-        //TODO: Refactor passing a ConnectionMultiplexer
-        protected bool LockInstance(string redisServer, string resource, byte[] val, TimeSpan ttl)
+        protected bool LockInstance(IConnectionMultiplexer redisServer, string resource, byte[] val, TimeSpan ttl)
         {
             
             bool succeeded;
             try
             {
-                var redis = this.redisMasterDictionary[redisServer];
-                succeeded = redis.GetDatabase().StringSet(resource, val, ttl, When.NotExists);
+                succeeded = redisServer.GetDatabase().StringSet(resource, val, ttl, When.NotExists);
             }
             catch (Exception)
             {
@@ -78,13 +76,11 @@ namespace Redlock.CSharp
             return succeeded;
         }
 
-        //TODO: Refactor passing a ConnectionMultiplexer
-        protected void UnlockInstance(string redisServer, string resource, byte[] val)
+        protected void UnlockInstance(IConnectionMultiplexer redisServer, string resource, byte[] val)
         {
             RedisKey[] key = { resource };
             RedisValue[] values = { val };
-            var redis = redisMasterDictionary[redisServer];
-            redis.GetDatabase().ScriptEvaluate(
+            redisServer.GetDatabase().ScriptEvaluate(
                 UnlockScript, 
                 key,
                 values
@@ -147,14 +143,6 @@ namespace Redlock.CSharp
             foreach (var item in redisMasterDictionary)
             {
                 action(item.Value);
-            }
-        }
-
-        protected void for_each_redis_registered(Action<String> action)
-        {
-            foreach (var item in redisMasterDictionary)
-            {
-                action(item.Key);
             }
         }
 
